@@ -15,20 +15,30 @@ import java.util.concurrent.Callable;
 
 public class App implements Callable<Integer>{
 
+    @Parameters(description = "path to first file.")
+    private String filepath1;
 
-        @Option(names = {"-h", "--help"}, usageHelp = true, description = "Show this help message and exit.")
-        boolean usageHelpRequested;
+    @Parameters(description = "path to second file.")
+    private String filepath2;
 
-        @Option(names = {"-V", "--version"}, versionHelp = true, description = "Print version information and exit.")
-        boolean versionInformationRequested;
+    @Option(names = {"-f", "--format"}, paramLabel = "format", defaultValue = "stylish", description = "output format [default: stylish]")
+    String format;
 
-        @Override
-        public Integer call() throws Exception {
-            return 0;
-        }
+    @Option(names = {"-h", "--help"}, usageHelp = true, description = "Show this help message and exit.")
+    boolean help;
 
-        public static void main(String... args) {
-            int exitCode = new CommandLine(new App()).execute(args);
-            System.exit(exitCode);
+    @Option(names = {"-V", "--version"}, versionHelp = true, description = "Print version information and exit.")
+    boolean versionInfo;
+
+    @Override
+    public Integer call() throws Exception {
+        String diff = FilesDiffer.diff(filePath1, filePath2);
+        System.out.println(diff);
+        return 0;
+    }
+
+    public static void main(String... args) {
+        int exitCode = new CommandLine(new App()).execute(args);
+        System.exit(exitCode);
     }
 }
