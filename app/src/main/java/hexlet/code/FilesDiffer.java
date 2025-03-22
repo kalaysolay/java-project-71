@@ -16,39 +16,51 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class FilesDiffer {
 
-    public static String diff(String filePath1, String filePath2) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode1 = objectMapper.readTree(new File(filePath1));
-        JsonNode jsonNode2 = objectMapper.readTree(new File(filePath2));
+    public static String diff(String filePath1, String filePath2) throws Exception {
+        Map<String, Object> firstFileData = getDataFromFile(filePath1);
+        Map<String, Object> secondFileData = getDataFromFile(filePath2);
 
-        Map<String, Object> differences = new HashMap<>();
-        compareJson("", jsonNode1, jsonNode2, differences);
-        return differences.toString();
-    }
+        // Объединяем ключи из обоих файлов
+        Set<String> allKeys = new TreeSet<>(firstFileData.keySet()); // TreeSet сразу сортирует
+        allKeys.addAll(secondFileData.keySet());
 
-    private static void compareJson(String path, JsonNode node1, JsonNode node2, Map<String, Object> differences) {
-        if (!node1.equals(node2)) {
-            if (node1.isObject() && node2.isObject()) {
-                for (String fieldName : node1.fieldNames().toList()) {
-                    //рекурсивно сравниваем каждый узел в json
-                    compareJson(path + "." + fieldName, node1.get(fieldName), node2.get(fieldName), differences);
+        StringBuilder result = new StringBuilder("{\n");
+
+        for (String key : allKeys) {
+            boolean inFirst = firstFileData.containsKey(key);
+            boolean inSecond = secondFileData.containsKey(key);
+
+            if (inFirst && inSecond) {
+                Object firstValue = firstFileData.get(key);
+                Object secondValue = secondFileData.get(key);
+
+                // узел есть обоиз файлах. Выводим просто пробел
+                if (Objects.equals(firstValue, secondValue)) {
+                    result.append("    ").append(key).append(": ").append(firstValue).append("\n");
+                } else {
+                    // узла нет в первом файле,но узел есть во втором файле. Поэтому первой строкой первый файл, ниже - второй файл
+                    result.append("  - ").append(key).append(": ").append(firstValue).append("\n");
+                    result.append("  + ").append(key).append(": ").append(secondValue).append("\n");
                 }
+            } else if (inFirst) {
+                result.append("  - ").append(key).append(": ").append(firstFileData.get(key)).append("\n");
             } else {
-                differences.put(path.isEmpty() ? "root" : path, "Expected: " + node1 + ", Found: " + node2);
+                result.append("  + ").append(key).append(": ").append(secondFileData.get(key)).append("\n");
             }
         }
+
+        result.append("}");
+        return result.toString();
     }
 
-    public static List<Map<String, Object>> getDifference(Map<String, Object> fileMap1, Map<String, Object> fileMap2) {
-        List<Map<String, Object>> diffList = new ArrayList<>();
-        Set<String> keys = new HashSet<>();
-        keys.addAll(fileMap1.keySet());
-        keys.addAll(fileMap2.keySet());
-    }
+    public static Map<String, Object> getDataFromFile(String filePath) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        File file = Paths.get(filePath).toFile(); // Преобразуем путь в объект File
+        //System.out.println("PATH: " + Paths.get(filePath).toAbsolutePath());
 
-    public static Map<String, Object> getContent(String fileContent) throws JsonProcessingException {
-        ObjectMapper om = new ObjectMapper();
-        return om.readValue(fileContent, new TypeReference<>() { });
-        //return fileData;
+        // читаем файл JSON и заполняем мапу
+        Map<String, Object> resultMap = new HashMap<>(objectMapper.readValue(file, Map.class));
+
+        return resultMap;
     }
 }

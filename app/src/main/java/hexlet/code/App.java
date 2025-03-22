@@ -15,11 +15,11 @@ import java.util.concurrent.Callable;
 
 public class App implements Callable<Integer>{
 
-    @Parameters(description = "path to first file.")
-    private String filepath1;
+    @Parameters(index = "0", description = "path to first file")
+    private static String filepath1;
 
-    @Parameters(description = "path to second file.")
-    private String filepath2;
+    @Parameters(index = "1", description = "path to second file")
+    private static String filepath2;
 
     @Option(names = {"-f", "--format"}, paramLabel = "format", defaultValue = "stylish", description = "output format [default: stylish]")
     String format;
