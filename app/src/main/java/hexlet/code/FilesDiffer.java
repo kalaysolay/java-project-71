@@ -1,32 +1,54 @@
 package hexlet.code;
 
 import java.io.IOException;
-import java.util.Map;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.*;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.File;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class FilesDiffer {
 
     public static String diff(String filePath1, String filePath2) throws IOException {
-        String fileContent1 = getContent(filePath1);
-        String fileContent2 = getContent(filePath2);
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode1 = objectMapper.readTree(new File(filePath1));
+        JsonNode jsonNode2 = objectMapper.readTree(new File(filePath2));
 
-        String result = Parcer.parce(fileContent1, fileContent2);
-
-        return result;
+        Map<String, Object> differences = new HashMap<>();
+        compareJson("", jsonNode1, jsonNode2, differences);
+        return differences.toString();
     }
-    public static String parce(String fileContent1, String fileContent2) throws JsonProcessingException {
-        Map<String, Object> map1 = getData(fileContent1);
-        Map<String, Object> map2 = getData(fileContent2);
 
-        Map<String, Object> resultMap = getDifference(map1, map2);
-        String result = getDifferenceString(resultMap);
-
-        return result;
+    private static void compareJson(String path, JsonNode node1, JsonNode node2, Map<String, Object> differences) {
+        if (!node1.equals(node2)) {
+            if (node1.isObject() && node2.isObject()) {
+                for (String fieldName : node1.fieldNames().toList()) {
+                    //рекурсивно сравниваем каждый узел в json
+                    compareJson(path + "." + fieldName, node1.get(fieldName), node2.get(fieldName), differences);
+                }
+            } else {
+                differences.put(path.isEmpty() ? "root" : path, "Expected: " + node1 + ", Found: " + node2);
+            }
+        }
     }
+
+    public static List<Map<String, Object>> getDifference(Map<String, Object> fileMap1, Map<String, Object> fileMap2) {
+        List<Map<String, Object>> diffList = new ArrayList<>();
+        Set<String> keys = new HashSet<>();
+        keys.addAll(fileMap1.keySet());
+        keys.addAll(fileMap2.keySet());
+    }
+
     public static Map<String, Object> getContent(String fileContent) throws JsonProcessingException {
         ObjectMapper om = new ObjectMapper();
-        Map<String, Object> fileContentMap = om.readValue(fileContent, new TypeReference<>() { });
-
-        return fileContentMap;
+        return om.readValue(fileContent, new TypeReference<>() { });
+        //return fileData;
     }
-
 }
