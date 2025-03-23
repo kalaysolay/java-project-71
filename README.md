@@ -3,3 +3,6 @@
 
 ### Demos
 [Demo](https://asciinema.org/a/ljfkV6P6ndJzFhTtbBaOP4ORL)
+
+### ASCIINEMA
+[![ASCIINEMA FILESCOMPARATOR](https://asciinema.org/a/ljfkV6P6ndJzFhTtbBaOP4ORL)]
