@@ -1,14 +1,10 @@
 package hexlet.code;
-import java.io.IOException;
 import java.util.Map;
-import java.util.HashMap;
 import java.util.Objects;
-import java.nio.file.Paths;
-import java.io.File;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import static hexlet.code.Parser.getDataFromFile;
 
 public class FilesDiffer {
 
@@ -50,14 +46,5 @@ public class FilesDiffer {
         return result.toString();
     }
 
-    public static Map<String, Object> getDataFromFile(String filePath) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        File file = Paths.get(filePath).toFile(); // Преобразуем путь в объект File
-        //System.out.println("PATH: " + Paths.get(filePath).toAbsolutePath());
 
-        // читаем файл JSON и заполняем мапу
-        Map<String, Object> resultMap = new HashMap<>(objectMapper.readValue(file, Map.class));
-
-        return resultMap;
-    }
 }

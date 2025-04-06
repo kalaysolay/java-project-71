@@ -33,4 +33,7 @@
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=kalaysolay_java-project-71&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=kalaysolay_java-project-71)
 
 ### Demos
+#### Task 6
 [![asciicast](https://asciinema.org/a/ljfkV6P6ndJzFhTtbBaOP4ORL.svg)](https://asciinema.org/a/ljfkV6P6ndJzFhTtbBaOP4ORL)
+#### Task 8
+[![asciicast](https://asciinema.org/a/aMO9jXnVplm16Tp4W7rbDfOBq.svg)](https://asciinema.org/a/aMO9jXnVplm16Tp4W7rbDfOBq)

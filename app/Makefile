@@ -13,7 +13,10 @@ checkstyle:
 	./gradlew checkstyleMain checkstyleTest
 
 run-compare:
-	./build/install/app/bin/app ~/Hexlet/java-project-71/app/src/test/resources/file1.json ~/Hexlet/java-project-71/app/src/test/resources/file2.json
+	./build/install/app/bin/app ~/projects/java-project-71/app/src/test/resources/file1.json ~/projects/java-project-71/app/src/test/resources/file2.json
+
+run-compare-yml:
+	./build/install/app/bin/app ~/projects/java-project-71/app/src/test/resources/file1.yml ~/projects/java-project-71/app/src/test/resources/file2.yml
 
 build: test checkstyle
 	./gradlew clean
