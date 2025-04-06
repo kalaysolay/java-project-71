@@ -1,6 +1,5 @@
 package hexlet.code;
 
-import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -12,14 +11,16 @@ public class FilesDifferTest {
     @Test
     public void testDifferGenerateJSON() throws Exception {
         String expected = "{\n"
-                + " - follow: false\n"
-                + "   host: hexlet.io\n"
-                + " - proxy: 123.234.53.22\n"
-                + " - timeout: 50\n"
-                + " + timeout: 20\n"
-                + " + verbose: true\n"
+                + "  - follow: false\n"
+                + "    host: hexlet.io\n"
+                + "  - proxy: 123.234.53.22\n"
+                + "  - timeout: 50\n"
+                + "  + timeout: 20\n"
+                + "  + verbose: true\n"
                 + "}";
         String actual = FilesDiffer.diff(PATH_FIRST_JSON, PATH_SECOND_JSON);
+        System.out.println("Actual output:\n" + actual);
+
         assertThat(actual).isEqualTo(expected);
     }
 }

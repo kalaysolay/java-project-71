@@ -1,17 +1,13 @@
 package hexlet.code;
-
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.*;
-
-import java.nio.file.Path;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Objects;
 import java.nio.file.Paths;
 import java.io.File;
+import java.util.Set;
+import java.util.TreeSet;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class FilesDiffer {
@@ -38,7 +34,8 @@ public class FilesDiffer {
                 if (Objects.equals(firstValue, secondValue)) {
                     result.append("    ").append(key).append(": ").append(firstValue).append("\n");
                 } else {
-                    // узла нет в первом файле,но узел есть во втором файле. Поэтому первой строкой первый файл, ниже - второй файл
+                    // узла нет в первом файле,но узел есть во втором файле.
+                    // Поэтому первой строкой первый файл, ниже - второй файл
                     result.append("  - ").append(key).append(": ").append(firstValue).append("\n");
                     result.append("  + ").append(key).append(": ").append(secondValue).append("\n");
                 }

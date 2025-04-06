@@ -1,7 +1,9 @@
 plugins {
     id("java")
     id("com.github.ben-manes.versions") version "0.42.0"
-    id ("application")
+    id("application")
+    id("checkstyle")
+    id("org.sonarqube") version "6.1.0.5360"
 }
 
 application {
@@ -19,6 +21,7 @@ repositories {
 dependencies {
     implementation("info.picocli:picocli:4.7.4")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
+    implementation("org.sonarqube:org.sonarqube.gradle.plugin:6.1.0.5360")
     annotationProcessor ("info.picocli:picocli-codegen:4.7.6")
     testImplementation(platform("org.junit:junit-bom:5.9.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
