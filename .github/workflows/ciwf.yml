@@ -18,12 +18,15 @@ jobs:
           fetch-depth: 0
       - name: Execute Gradle build
         run: make build
+        working-directory: ./app
 
       - name: Execute Gradle test
         run: make test
+        working-directory: ./app
 
       - name: Execute Gradle checkstyle
         run: make lint
+        working-directory: ./app
 
       - name: Cache SonarQube packages
         uses: actions/cache@v4

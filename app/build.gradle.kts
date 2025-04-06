@@ -3,9 +3,15 @@ plugins {
     id("com.github.ben-manes.versions") version "0.42.0"
     id("application")
     id("checkstyle")
-    id("org.sonarqube") version "6.1.0.5360"
+    id("org.sonarqube") version "6.0.1.5171"
 }
-
+sonar {
+    properties {
+        property("sonar.projectKey", "kalaysolay_java-project-71")
+        property("sonar.organization", "kalaysolay")
+        property("sonar.host.url", "https://sonarcloud.io")
+    }
+}
 application {
     mainClass.set("hexlet.code.App")
 }
@@ -15,6 +21,7 @@ group = "hexlet.code"
 version = "1.0-SNAPSHOT"
 
 repositories {
+    gradlePluginPortal()
     mavenCentral()
 }
 
