@@ -8,7 +8,7 @@ import static hexlet.code.Parser.getDataFromFile;
 
 public class FilesDiffer {
 
-    public static String diff(String filePath1, String filePath2) throws Exception {
+    public static String diff(String filePath1, String filePath2, String format ) throws Exception {
         Map<String, Object> firstFileData = getDataFromFile(filePath1);
         Map<String, Object> secondFileData = getDataFromFile(filePath2);
 
