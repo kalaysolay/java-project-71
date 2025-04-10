@@ -11,19 +11,15 @@ import java.util.Map;
 
 public class Parser {
     public static Map<String, Object> getDataFromFile(String filePath) throws IOException {
-        ObjectMapper mapper = null;
-        File file = Paths.get(filePath).toFile(); // Преобразуем путь в объект File
-        //System.out.println("PATH: " + Paths.get(filePath).toAbsolutePath());
-        if (filePath.endsWith("json")) {
+        ObjectMapper mapper;
+        if (filePath.endsWith(".json")) {
             mapper = new ObjectMapper();
-        } else if (filePath.endsWith("yml") || filePath.endsWith("yaml")) {
+        } else if (filePath.endsWith(".yml") || filePath.endsWith(".yaml")) {
             mapper = new YAMLMapper();
         } else {
-            throw new IllegalArgumentException("Illegal format: " + filePath);
+            throw new IllegalArgumentException("Unsupported file format: " + filePath);
         }
-        // читаем файл JSON и заполняем мапу
-        Map<String, Object> resultMap = new HashMap<>(mapper.readValue(file, Map.class));
-
-        return resultMap;
+        File file = Paths.get(filePath).toFile();
+        return mapper.readValue(file, Map.class);
     }
 }

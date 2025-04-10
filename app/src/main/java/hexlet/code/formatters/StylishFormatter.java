@@ -1,38 +1,38 @@
 package hexlet.code.formatters;
 
+import hexlet.code.Difference;
+
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.List;
 
-public class StylishFormatter {
-    public static String makeStylishFormat (Map<String, Object> firstFileData, Map<String, Object> secondFileData, Set<String> allKeys ) {
+public class StylishFormatter implements Formatter {
+    @Override
+    public String format(List<Difference> differences) {
         StringBuilder result = new StringBuilder("{\n");
+        for (Difference diff : differences) {
+            String key = diff.getKey();
+            Object oldValue = diff.getOldValue();
+            Object newValue = diff.getNewValue();
 
-        for (String key : allKeys) {
-            boolean inFirst = firstFileData.containsKey(key);
-            boolean inSecond = secondFileData.containsKey(key);
-
-            if (inFirst && inSecond) {
-                Object firstValue = firstFileData.get(key);
-                Object secondValue = secondFileData.get(key);
-
-                // узел есть обоиз файлах. Выводим просто пробел
-                if (Objects.equals(firstValue, secondValue)) {
-                    result.append("    ").append(key).append(": ").append(firstValue).append("\n");
-                } else {
-                    // узла нет в первом файле,но узел есть во втором файле.
-                    // Поэтому первой строкой первый файл, ниже - второй файл
-                    result.append("  - ").append(key).append(": ").append(firstValue).append("\n");
-                    result.append("  + ").append(key).append(": ").append(secondValue).append("\n");
-                }
-            } else if (inFirst) {
-                result.append("  - ").append(key).append(": ").append(firstFileData.get(key)).append("\n");
+            if (oldValue != null && newValue == null) {
+                result.append(String.format("  - %s: %s\n", key, oldValue));
+            } else if (!Objects.equals(oldValue, newValue)) {
+                result.append(String.format("  - %s: %s\n", key, toStringValue(oldValue)));
+                result.append(String.format("  + %s: %s\n", key, toStringValue(newValue)));
+            } else if (!oldValue.equals(newValue)) {
+                result.append(String.format("  - %s: %s\n", key, oldValue));
+                result.append(String.format("  + %s: %s\n", key, newValue));
             } else {
-                result.append("  + ").append(key).append(": ").append(secondFileData.get(key)).append("\n");
+                result.append(String.format("    %s: %s\n", key, oldValue));
             }
         }
-
         result.append("}");
         return result.toString();
+    }
+
+    private String toStringValue(Object value) {
+        return value == null ? "null" : value.toString();
     }
 }

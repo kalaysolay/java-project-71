@@ -1,7 +1,11 @@
 package hexlet.code;
 
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class FilesDifferTest {
 
@@ -21,7 +25,7 @@ public class FilesDifferTest {
                 + "  + timeout: 20\n"
                 + "  + verbose: true\n"
                 + "}";
-        String actual = FilesDiffer.diff(PATH_FIRST_JSON, PATH_SECOND_JSON);
+        String actual = FilesDiffer.diff(PATH_FIRST_JSON, PATH_SECOND_JSON, "stylish");
         System.out.println("Actual output:\n" + actual);
 
         assertThat(actual).isEqualTo(expected);
@@ -54,9 +58,43 @@ public class FilesDifferTest {
                 + "  - setting3: true\n"
                 + "  + setting3: none\n"
                 + "}";
-        String actual = FilesDiffer.diff(PATH_FIRST_JSON_HARD, PATH_SECOND_JSON_HARD);
+        String actual = FilesDiffer.diff(PATH_FIRST_JSON_HARD, PATH_SECOND_JSON_HARD, "stylish");
         System.out.println("Actual output:\n" + actual);
 
         assertThat(actual).isEqualTo(expected);
     }
+    @Test
+    public void testStylishFormat() throws Exception {
+        String actual = FilesDiffer.diff(PATH_FIRST_JSON, PATH_SECOND_JSON, "stylish");
+        assertThat(actual).contains("- follow").contains("+ verbose").contains("host: hexlet.io");
+    }
+
+    @Test
+    public void testStylishHardJson() throws Exception {
+        String result = FilesDiffer.diff(PATH_FIRST_JSON_HARD, PATH_SECOND_JSON_HARD, "stylish");
+        assertThat(result).contains("chars2").contains("+ obj1").contains("- setting2");
+    }
+
+    @Test
+    public void testPlainFormat() throws Exception {
+        String actual = FilesDiffer.diff(PATH_FIRST_JSON_HARD, PATH_SECOND_JSON_HARD, "plain");
+        assertThat(actual)
+                .contains("Property 'chars2' was updated")
+                .contains("Property 'key2' was added")
+                .contains("Property 'numbers3' was removed");
+    }
+/*
+    @Test
+    public void testJsonFormat() throws Exception {
+        String actual = FilesDiffer.diff(PATH_FIRST_JSON, PATH_SECOND_JSON, "json");
+        assertThat(actual).startsWith("[{").contains("\"key\"").contains("\"oldValue\"");
+    }
+*/
+    @Test
+    public void testFileNotFound() {
+        String badPath = "no/such/file.json";
+        assertThatThrownBy(() -> FilesDiffer.diff(badPath, PATH_SECOND_JSON, "stylish"))
+                .isInstanceOf(IOException.class);
+    }
+
 }
