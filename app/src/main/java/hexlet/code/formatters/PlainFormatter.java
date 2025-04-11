@@ -1,37 +1,45 @@
 package hexlet.code.formatters;
-import hexlet.code.Difference;
 
 import java.util.List;
+import java.util.Map;
 
 public class PlainFormatter implements Formatter {
+
     @Override
-    public String format(List<Difference> differences) {
+    public String format(List<Map<String, Object>> differences) {
         StringBuilder result = new StringBuilder();
 
-        for (Difference diff : differences) {
-            String key = diff.getKey();
-            Object oldValue = diff.getOldValue();
-            Object newValue = diff.getNewValue();
+        for (Map<String, Object> diff : differences) {
+            String key = (String) diff.get("key");
+            String type = (String) diff.get("type");
 
-            if (oldValue == null) {
-                result.append(String.format("Property '%s' was added with value: %s\n", key, formatValue(newValue)));
-            } else if (newValue == null) {
-                result.append(String.format("Property '%s' was removed\n", key));
-            } else if (!oldValue.equals(newValue)) {
-                result.append(String.format("Property '%s' was updated. From %s to %s\n", key, formatValue(oldValue), formatValue(newValue)));
+            switch (type) {
+                case "added" -> result.append(
+                        String.format("Property '%s' was added with value: %s\n",
+                                key, toPlainValue(diff.get("value"))));
+                case "deleted" -> result.append(
+                        String.format("Property '%s' was removed\n", key));
+                case "changed" -> result.append(
+                        String.format("Property '%s' was updated. From %s to %s\n",
+                                key,
+                                toPlainValue(diff.get("value1")),
+                                toPlainValue(diff.get("value2"))));
+                default -> {
+                }
+                // "unchanged" ничего не выводим
             }
         }
-
         return result.toString().trim();
     }
 
-    private String formatValue(Object value) {
-        if (value instanceof String) {
+    private String toPlainValue(Object value) {
+        if (value == null) {
+            return "null";
+        } else if (value instanceof String) {
             return "'" + value + "'";
-        } else if (value instanceof List) {
+        } else if (value instanceof List || value instanceof Map) {
             return "[complex value]";
-        } else {
-            return String.valueOf(value);
         }
+        return value.toString();
     }
 }

@@ -1,31 +1,27 @@
 package hexlet.code.formatters;
 
-import hexlet.code.Difference;
-
 import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
 import java.util.List;
 
 public class StylishFormatter implements Formatter {
     @Override
-    public String format(List<Difference> differences) {
+    public String format(List<Map<String, Object>> differences) {
         StringBuilder result = new StringBuilder("{\n");
-        for (Difference diff : differences) {
-            String key = diff.getKey();
-            Object oldValue = diff.getOldValue();
-            Object newValue = diff.getNewValue();
+        for (Map<String, Object> diff : differences) {
+            String key = (String) diff.get("key");
+            String type = (String) diff.get("type");
 
-            if (oldValue != null && newValue == null) {
-                result.append(String.format("  - %s: %s\n", key, oldValue));
-            } else if (!Objects.equals(oldValue, newValue)) {
-                result.append(String.format("  - %s: %s\n", key, toStringValue(oldValue)));
-                result.append(String.format("  + %s: %s\n", key, toStringValue(newValue)));
-            } else if (!oldValue.equals(newValue)) {
-                result.append(String.format("  - %s: %s\n", key, oldValue));
-                result.append(String.format("  + %s: %s\n", key, newValue));
-            } else {
-                result.append(String.format("    %s: %s\n", key, oldValue));
+            switch (type) {
+                case "added" -> result.append(String.format("  + %s: %s\n", key, toStringValue(diff.get("value"))));
+                case "deleted" -> result.append(String.format("  - %s: %s\n", key, toStringValue(diff.get("value"))));
+                case "unchanged" -> result.append(String.format("    %s: %s\n", key, toStringValue(diff.get("value"))));
+                case "changed" -> {
+                    result.append(String.format("  - %s: %s\n", key, toStringValue(diff.get("value1"))));
+                    result.append(String.format("  + %s: %s\n", key, toStringValue(diff.get("value2"))));
+                }
+                default -> {
+                    return  "Nothing";
+                }
             }
         }
         result.append("}");
