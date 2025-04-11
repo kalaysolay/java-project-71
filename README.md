@@ -39,3 +39,8 @@
 [![asciicast](https://asciinema.org/a/aMO9jXnVplm16Tp4W7rbDfOBq.svg)](https://asciinema.org/a/aMO9jXnVplm16Tp4W7rbDfOBq)
 #### Task 9
 [![asciicast](https://asciinema.org/a/ZtkF0V0tvUY3M1jKX8xTI4ytG.svg)](https://asciinema.org/a/ZtkF0V0tvUY3M1jKX8xTI4ytG)
+#### Task 10
+[![asciicast](https://asciinema.org/a/KM3SaSjaQwKeJ9F1JQpO9ZBUN.svg)](https://asciinema.org/a/KM3SaSjaQwKeJ9F1JQpO9ZBUN)
+#### Task 11
+[![asciicast](https://asciinema.org/a/dJpuyuZOAFyY5ZVrfJ7klPrPq.svg)](https://asciinema.org/a/dJpuyuZOAFyY5ZVrfJ7klPrPq)
+
