@@ -43,7 +43,7 @@ public class Differ {
 
         List<Map<String, Object>> differences = calculateDifferences(firstFileData, secondFileData);
 
-        Formatter formatter = StylishFormatter();
+        Formatter formatter = new StylishFormatter();
         return formatter.format(differences);
     }
 
