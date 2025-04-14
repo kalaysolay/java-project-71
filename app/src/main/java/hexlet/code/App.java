@@ -24,21 +24,18 @@ public class App implements Callable<Integer> {
             paramLabel = "format",
             defaultValue = "stylish",
             description = "output format [default: stylish]")
-    String format;
+    private String format;
 
     @Option(names = {"-h", "--help"},
             usageHelp = true,
             description = "Show this help message and exit.")
-    boolean help;
+    private boolean help;
 
     @Option(names = {"-V", "--version"},
             versionHelp = true,
             description = "Print version information and exit.")
-    boolean versionInfo;
+    private boolean versionInfo;
 
-    /**
-     * method calls generate for output data into various format
-     */
     @Override
     public Integer call() throws Exception {
         String diff = Differ.generate(filepath1, filepath2, format);

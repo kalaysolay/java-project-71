@@ -5,10 +5,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.util.List;
 import java.util.Map;
-/**
- * Formats the input data into JSON format.
- */
-public  class JsonFormatter implements Formatter {
+
+public final class JsonFormatter implements Formatter {
 
     @Override
     public String format(List<Map<String, Object>> differences) {
