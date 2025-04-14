@@ -19,9 +19,10 @@ application {
 group = "hexlet.code"
 version = "1.0-SNAPSHOT"
 
+
 repositories {
-    gradlePluginPortal()
     mavenCentral()
+    gradlePluginPortal()
 }
 
 dependencies {
