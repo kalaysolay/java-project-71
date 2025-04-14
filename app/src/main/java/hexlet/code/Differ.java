@@ -37,6 +37,16 @@ public class Differ {
         return formatter.format(differences);
     }
 
+    public static String generate(String filePath1, String filePath2) throws IOException {
+        Map<String, Object> firstFileData = getDataFromFile(filePath1);
+        Map<String, Object> secondFileData = getDataFromFile(filePath2);
+
+        List<Map<String, Object>> differences = calculateDifferences(firstFileData, secondFileData);
+
+        Formatter formatter = StylishFormatter();
+        return formatter.format(differences);
+    }
+
     private static List<Map<String, Object>> calculateDifferences(Map<String, Object> map1, Map<String, Object> map2) {
         Set<String> keys = new TreeSet<>(map1.keySet());
         keys.addAll(map2.keySet());
