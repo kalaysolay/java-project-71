@@ -36,6 +36,9 @@ public class App implements Callable<Integer> {
             description = "Print version information and exit.")
     boolean versionInfo;
 
+    /**
+     * method calls generate for output data into various format
+     */
     @Override
     public Integer call() throws Exception {
         String diff = Differ.generate(filepath1, filepath2, format);

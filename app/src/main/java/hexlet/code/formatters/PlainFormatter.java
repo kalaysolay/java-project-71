@@ -2,8 +2,10 @@ package hexlet.code.formatters;
 
 import java.util.List;
 import java.util.Map;
-
-public class PlainFormatter implements Formatter {
+/**
+ * Formats the input data into plain format.
+ */
+public  class PlainFormatter implements Formatter {
 
     @Override
     public String format(List<Map<String, Object>> differences) {

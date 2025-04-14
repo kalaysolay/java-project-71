@@ -2,7 +2,9 @@ package hexlet.code.formatters;
 
 import java.util.Map;
 import java.util.List;
-
+/**
+ * Formats the input data into Stylish format.
+ */
 public class StylishFormatter implements Formatter {
     @Override
     public String format(List<Map<String, Object>> differences) {
