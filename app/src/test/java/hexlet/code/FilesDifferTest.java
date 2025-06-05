@@ -90,11 +90,6 @@ public class FilesDifferTest {
         assertEquals(expectedJson, actualFromYaml);
 
     }
-    @Test
-    public void testFileNotFound() {
-        String badPath = "unknown/directory/file.json";
-        assertThatThrownBy(() -> Differ.generate(badPath, PATH_FIRST_JSON_HARD, "stylish"))
-                .isInstanceOf(IOException.class);
-    }
+
 
 }

@@ -1,6 +1,6 @@
 .PHONY: build
 
-n-dist:
+run-dist:
 	./build/install/app/bin/app
 
 run:
