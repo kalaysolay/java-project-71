@@ -1,22 +1,14 @@
 package hexlet.code;
 import hexlet.code.formatters.Formatter;
-import hexlet.code.formatters.JsonFormatter;
-import hexlet.code.formatters.PlainFormatter;
-import hexlet.code.formatters.StylishFormatter;
-import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
+
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 
 import static hexlet.code.DifferenceCalculator.calculateDifferences;
-import static hexlet.code.Parser.getDataFromFile;
 import static hexlet.code.Parser.parse;
 
 public class Differ {
