@@ -2,6 +2,7 @@ plugins {
     id("com.github.ben-manes.versions") version "0.42.0"
     id("application")
     id("checkstyle")
+    id("jacoco")
     id("org.sonarqube") version "6.1.0.5360"
 }
 sonar {
@@ -9,6 +10,7 @@ sonar {
         property("sonar.projectKey", "kalaysolay_java-project-71")
         property("sonar.organization", "kalaysolay")
         property("sonar.host.url", "https://sonarcloud.io")
+        property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
     }
 }
 application {
@@ -40,4 +42,15 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport)
+}
+
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+
+    reports {
+        xml.required.set(true)    // ☑️ ОБЯЗАТЕЛЬНО для SonarQube
+        html.required.set(true)   // по желанию
+    }
 }
