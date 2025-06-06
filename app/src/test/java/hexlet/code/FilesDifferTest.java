@@ -51,6 +51,13 @@ public class FilesDifferTest {
     public void testStylishJson() throws Exception {
         String actual = Differ.generate(PATH_FIRST_JSON_HARD, PATH_SECOND_JSON_HARD, "stylish");
         assertThat(actual).isEqualTo(expectedStylish);
+
+    }
+
+    @Test
+    public void testStylishJsonWithTwoParams() throws Exception {
+        String actual = Differ.generate(PATH_FIRST_JSON_HARD, PATH_SECOND_JSON_HARD);
+        assertThat(actual).isEqualTo(expectedStylish);
     }
 
     @Test

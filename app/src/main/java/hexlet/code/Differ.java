@@ -40,14 +40,6 @@ public class Differ {
     }
 
     public static String generate(String filePath1, String filePath2) throws Exception {
-      /*  Map<String, Object> firstFileData = getDataFromFile(filePath1);
-        Map<String, Object> secondFileData = getDataFromFile(filePath2);
-
-        List<Map<String, Object>> differences = calculateDifferences(firstFileData, secondFileData);
-
-        Formatter formatter = new StylishFormatter();
-        return formatter.format(differences);
-*/
         return generate(filePath1, filePath2, "stylish");
     }
 
