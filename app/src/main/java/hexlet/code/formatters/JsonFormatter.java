@@ -1,5 +1,6 @@
 package hexlet.code.formatters;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -9,13 +10,13 @@ import java.util.Map;
 public final class JsonFormatter implements Formatter {
 
     @Override
-    public String format(List<Map<String, Object>> differences) {
-        try {
+    public String format(List<Map<String, Object>> differences) throws Exception {
+     //   try {
             ObjectMapper mapper = new ObjectMapper();
             mapper.enable(SerializationFeature.INDENT_OUTPUT);
             return mapper.writeValueAsString(differences);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to format as JSON", e);
-        }
+       // } catch (Exception e) {
+           // throw new RuntimeException("Failed to format as JSON", e);
+       // }
     }
 }

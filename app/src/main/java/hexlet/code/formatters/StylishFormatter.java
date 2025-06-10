@@ -5,7 +5,7 @@ import java.util.List;
 
 public final class StylishFormatter implements Formatter {
     @Override
-    public String format(List<Map<String, Object>> differences) {
+    public String format(List<Map<String, Object>> differences) throws Exception{
         StringBuilder result = new StringBuilder("{\n");
         for (Map<String, Object> diff : differences) {
             String key = (String) diff.get("key");
