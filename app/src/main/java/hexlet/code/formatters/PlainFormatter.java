@@ -6,7 +6,7 @@ import java.util.Map;
 public final class PlainFormatter implements Formatter {
 
     @Override
-    public String format(List<Map<String, Object>> differences) throws Exception{
+    public String format(List<Map<String, Object>> differences) throws Exception {
         StringBuilder result = new StringBuilder();
 
         for (Map<String, Object> diff : differences) {

@@ -10,12 +10,8 @@ public final class JsonFormatter implements Formatter {
 
     @Override
     public String format(List<Map<String, Object>> differences) throws Exception {
-     //   try {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            return mapper.writeValueAsString(differences);
-       // } catch (Exception e) {
-           // throw new RuntimeException("Failed to format as JSON", e);
-       // }
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        return mapper.writeValueAsString(differences);
     }
 }
