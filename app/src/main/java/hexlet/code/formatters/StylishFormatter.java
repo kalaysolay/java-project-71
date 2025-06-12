@@ -19,8 +19,7 @@ public final class StylishFormatter implements Formatter {
                     result.append(String.format("  - %s: %s\n", key, toStringValue(diff.get("value1"))));
                     result.append(String.format("  + %s: %s\n", key, toStringValue(diff.get("value2"))));
                 }
-                default -> throw new IllegalStateException("Unknown type: " + type);
-
+                default -> throw new Exception("Unknown type: " + type);
             }
         }
         result.append("}");
