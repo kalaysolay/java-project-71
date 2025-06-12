@@ -19,7 +19,7 @@ public final class PlainFormatter implements Formatter {
                                 key, toPlainValue(diff.get("value"))));
                 case "deleted" -> result.append(
                         String.format("Property '%s' was removed\n", key));
-                case "unchanged" -> {}
+                case "unchanged" -> { }
                 case "changed" -> result.append(
                         String.format("Property '%s' was updated. From %s to %s\n",
                                 key,
