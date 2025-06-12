@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FilesDifferTest {
+public class DifferTest {
 
     private static final String PATH_FIRST_JSON = "./src/test/resources/file1_hard.json";
     private static final String PATH_SECOND_JSON = "./src/test/resources/file2_hard.json";

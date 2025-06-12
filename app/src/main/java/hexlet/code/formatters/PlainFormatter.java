@@ -24,9 +24,8 @@ public final class PlainFormatter implements Formatter {
                                 key,
                                 toPlainValue(diff.get("value1")),
                                 toPlainValue(diff.get("value2"))));
-                default -> {
-                }
-                // "unchanged" ничего не выводим
+                default -> throw new IllegalStateException("Unknown type: " + type);
+
             }
         }
         return result.toString().trim();
